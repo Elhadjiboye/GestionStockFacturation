@@ -1,0 +1,39 @@
+ CREATE VIEW client_employe_vue AS
+SELECT
+    u.id AS id,
+    u.email AS email,
+    u.code_zip AS code_zip,
+    u.etat AS etat,
+    u.nom AS nom,
+    u.prenom AS prenom,
+    u.mot_de_passe AS mot_de_passe,
+    u.telephone AS telephone,
+    u.ville AS ville,
+    u.date_modification AS date_modification,
+    u.date_creation AS date_creation,
+    ur.id_role AS id_role
+FROM
+    Client u
+LEFT JOIN
+    Client_roles ur ON u.id = ur.id_client
+
+UNION ALL
+
+SELECT
+    a.id AS id,
+    a.email AS email,
+    NULL AS code_zip, -- Ajout de NULL pour correspondre au nombre de colonnes
+    NULL AS etat,     -- Ajout de NULL pour correspondre au nombre de colonnes
+    a.nom AS nom,
+    a.prenom AS prenom,
+    a.mot_de_passe AS mot_de_passe,
+    a.telephone AS telephone,
+    NULL AS ville,    -- Ajout de NULL pour correspondre au nombre de colonnes
+    a.date_modification AS date_modification,
+    a.date_creation AS date_creation,
+    ar.id_role AS id_role
+FROM
+    Employe a
+LEFT JOIN
+    Employe_roles ar ON a.id = ar.id_employe;
+
